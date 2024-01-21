@@ -2,16 +2,19 @@
 
 include "../config.php";
 
-$priceMin = $_GET['priceMin'] ?? null;
-$priceMax = $_GET['priceMax'] ?? null;
-$mileageMin = $_GET['mileageMin'] ?? null;
-$mileageMax = $_GET['mileageMax'] ?? null;
-$variant = $_GET['variant'] ?? null;
-$condition = $_GET['condition'] ?? null;
-$location = $_GET['location'] ?? null;
-$availabilityStatus = $_GET['availabilityStatus'] ?? null;
 
-// Build the SQL query based on the filters
+$data = json_decode(file_get_contents("php://input"), true);
+
+$priceMin = $data['priceMin'] ?? null;
+$priceMax = $data['priceMax'] ?? null;
+$mileageMin = $data['mileageMin'] ?? null;
+$mileageMax = $data['mileageMax'] ?? null;
+$variant = $data['variant'] ?? null;
+$condition = $data['condition'] ?? null;
+$location = $data['location'] ?? null;
+$availabilityStatus = $data['availabilityStatus'] ?? null;
+
+
 $filterQuery = "SELECT * FROM cars WHERE 1";
 
 if ($priceMin !== null && $priceMax !== null) {

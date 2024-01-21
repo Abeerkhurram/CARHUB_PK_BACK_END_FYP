@@ -13,12 +13,10 @@ $phoneNumber = $data->phoneNumber;
 $password = $data->password;
 $location = $data->location;
 
-// Hash the password (for security, use a stronger hashing method in production)
-$hashedPassword = $password;
 
 // Insert user data into the 'users' table
 $insertUserQuery = "INSERT INTO users (Name, Email, PhoneNumber, userPassword, Location) 
-                    VALUES ('$name', '$email', '$phoneNumber', '$hashedPassword', '$location')";
+                    VALUES ('$name', '$email', '$phoneNumber', '$password', '$location')";
 $result = mysqli_query($conn, $insertUserQuery);
 
 // Check if the query was successful

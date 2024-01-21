@@ -1,34 +1,24 @@
 <?php
+include '../config.php';
 
-include '../config.php'; // Include your database configuration
 
-// Function to fetch cities data
-function getCitiesData() {
-    global $conn;
 
-    $query = "SELECT * FROM locations";
-    $result = mysqli_query($conn, $query);
+// Fetch cities data directly without a function
+$query = "SELECT * FROM locations";
+$result = mysqli_query($conn, $query);
 
-    $citiesData = [];
+$citiesData = [];
 
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $citiesData[] = $row;
-        }
-        return $citiesData;
-    } else {
-        return ['error' => mysqli_error($conn)];
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $citiesData[] = $row;
     }
+    // Output the data as JSON
+    echo json_encode($citiesData);
+} else {
+    // Output an error message if the query fails
+    echo json_encode(['error' => mysqli_error($conn)]);
 }
-
-// Set the content type to JSON
-header('Content-Type: application/json');
-
-// Call the function to get cities data
-$citiesData = getCitiesData();
-
-// Output the data as JSON
-echo json_encode($citiesData);
 
 // Close the database connection
 mysqli_close($conn);

@@ -1,17 +1,17 @@
 <?php
 include "../config.php";
 
-// Assuming this is your PHP file (e.g., create_car.php)
 
-// Check if the request method is POST
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get JSON data from the request body
+
     $jsonInput = file_get_contents('php://input');
     
     // Validate JSON data
     $requestData = json_decode($jsonInput, true);
     if ($requestData === null) {
-        // Invalid JSON data
+        
         http_response_code(400); // Bad Request
         echo json_encode(['error' => 'Invalid JSON data']);
         exit;
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle image URLs
     $uploadedImages = [];
 
-    // Check if 'images' key is set in the request
+    
     if (isset($requestData['images'])) {
         $imageUrls = $requestData['images'];
         foreach ($imageUrls as $imageUrl) {
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $insertImageQuery = "INSERT INTO carimages (CarID, ImageUrl) VALUES ('$carID', '$imagePaths')";
     mysqli_query($conn, $insertImageQuery);
 
-    // Display a success message
+    
     echo 'Car information and images uploaded successfully!';
 } else {
     // Handle other HTTP methods if needed
