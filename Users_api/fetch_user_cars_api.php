@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $jsonInput = file_get_contents('php://input');
     
-    -// Validate JSON data
+    // Validate JSON data
     $requestData = json_decode($jsonInput, true);
     if ($requestData === null || !isset($requestData['userID'])) {
         
