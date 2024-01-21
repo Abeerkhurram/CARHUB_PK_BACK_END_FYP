@@ -8,7 +8,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 $keywords = $data['keywords'];
 
-// Initialize an array to store the results
+// array to store the results
 $searchResults = array();
 
 
