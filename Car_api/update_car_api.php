@@ -66,11 +66,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert image data into the 'carimages' table
     $imagePaths = implode(',', $uploadedImages);
     $insertImageQuery = "UPDATE carimages SET ImageUrl='$imagePaths' WHERE CarID='$carIDToUpdate' ";
-    mysqli_query($conn, $insertImageQuery);
+    $result = mysqli_query($conn, $insertImageQuery);
 
+if ($result !== false && mysqli_affected_rows($conn) > 0) {
     
     echo 'Car information and images updated successfully!';
+} elseif ($result !== false && mysqli_affected_rows($conn) === 0) {
+    
+    echo 'No records found to update!';
 } else {
+    
+    echo 'Error updating car information and images: ' . mysqli_error($conn);
+}
+
+
+} else {// this else is of above to check the POST request
     
     http_response_code(405); // Method Not Allowed because it is post request get some data to proceed
     echo json_encode(['error' => 'Method Not Allowed']);
